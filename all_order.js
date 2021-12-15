@@ -179,6 +179,9 @@ function myFunction2() {
       all_datan4pre.push(data_all3pre[z])
     }
   }
+  if (!all_datan4.length){
+    Browser.msgBox("記入されたデータがありません。オーダーシートを確認してください。", Browser.Buttons.OK)
+  }
   var lastColumn3 = all_datan4[0].length; //カラムの数を取得する
   var lastRow3 = all_datan4.length;   //行の数を取得する
   shtn3.getRange(6, 1, 1000, lastColumn3).clear();
