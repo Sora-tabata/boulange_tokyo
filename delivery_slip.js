@@ -3,7 +3,7 @@ function myFunction(today, shop, flight){
   var ash = SpreadsheetApp.getActiveSpreadsheet();
   var shtn = ash.getSheetByName("(名前変更不可)納品書");
 //引数の定義
-  today = shtn.getRange("L1").getValue();
+  today = shtn.getRange("K1").getValue();
   shop = shtn.getRange("A1").getValue();
   if (shop == "BA立川"){
     var sht = ash.getSheetByName("(名前変更不可)オーダーシート立川");
@@ -119,9 +119,10 @@ function myFunction(today, shop, flight){
     }
     shtn.getRange(5, 1, 1000, lastColumn).clear();
     shtn.getRange(5,1,lastRow,lastColumn).setValues(all_datan);
+
   }
   
-
+  shtn.getRange(5,13,lastRow,1).clear();
   //Logger.log(today_column)
   //Logger.log(all_datan)
   //Logger.log(lastRow)
@@ -149,4 +150,3 @@ function myFunction(today, shop, flight){
     Browser.msgBox("更新が完了しました。OKを押した後、数秒で反映されます。", Browser.Buttons.OK)
   
 }
-
