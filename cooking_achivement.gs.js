@@ -38,7 +38,7 @@ function myFunction3(){
   var lastColumn_3 = all_datan_3[0].length; //カラムの数を取得する
   //Logger.log(all_datan_3)
   var lastRow_3 = all_datan_3.length;   //行の数を取得する
-  achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
+  //achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
   for (var i=0; i<all_datan_3.length;i++){
     if (all_datan_3[i][12] != ''){
       achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+5, 1, 1).setValue(all_datan_3[i][12])
