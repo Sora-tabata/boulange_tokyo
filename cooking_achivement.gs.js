@@ -26,7 +26,7 @@ function myFunction3(){
       break
     }
   }
-  achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
+  //achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
   var lastRow_3 = shtn_3.getRange('B:B').getValues().filter(String).length;
   var all_datan_3 = shtn_3.getRange(5, 1, lastRow_3, 13).getValues();
   var lastRow_4 = achiv_sht.getRange('B:B').getValues().filter(String).length;
