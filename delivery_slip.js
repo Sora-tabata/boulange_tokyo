@@ -145,7 +145,7 @@ function myFunction(today, shop, flight){
   var min = d.getMinutes();
   var s = d.getSeconds();
   var now = y+"/"+mon+"/"+d2+" "+h+":"+min+":"+s;
-  shtn.getRange("M3").setValue(now);
+  shtn.getRange("K3").setValue(now);
 
     Browser.msgBox("更新が完了しました。OKを押した後、数秒で反映されます。", Browser.Buttons.OK)
   
