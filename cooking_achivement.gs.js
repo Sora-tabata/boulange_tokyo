@@ -26,7 +26,7 @@ function myFunction3(){
       break
     }
   }
-  achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
+  //achiv_sht.getRange(5, today_column_4+5, 950, 2).clear();
   var lastRow_3 = shtn_3.getRange('B:B').getValues().filter(String).length;
   var all_datan_3 = shtn_3.getRange(5, 1, lastRow_3, 13).getValues();
   var lastRow_4 = achiv_sht.getRange('B:B').getValues().filter(String).length;
@@ -42,19 +42,19 @@ function myFunction3(){
   for (var i=0; i<all_datan_3.length;i++){
     if (all_datan_3[i][12] != ''){
       achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+5, 1, 1).setValue(all_datan_3[i][12])
-      achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(all_datan_3[i][12]*all_datan_3[i][3])
+      //achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(all_datan_3[i][12]*all_datan_3[i][3])
     }
     if (all_datan_3[i][12] == 0){
       achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+5, 1, 1).setValue('')
-      achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue('')
+      //achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue('')
     }
     if (all_datan_3[i][12] === '') {
       achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+5, 1, 1).setValue(all_datan_3[i][10])
-      achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(all_datan_3[i][10]*all_datan_3[i][3])
+      //achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(all_datan_3[i][10]*all_datan_3[i][3])
     }
     if (all_datan_3[i][12] === 0){
       achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+5, 1, 1).setValue(0)
-      achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(0)
+      //achiv_sht.getRange(all_datan_3[i][0]+4, today_column_4+6, 1, 1).setValue(0)
     }
   }
   achiv_sht.getRange(4, today_column_4+5, 1, 1).setValue("製造実績数")
