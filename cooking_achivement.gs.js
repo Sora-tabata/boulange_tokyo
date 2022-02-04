@@ -11,6 +11,9 @@ function myFunction3(){
   else if(shop_3 == "BA東急渋谷"){
     achiv_sht = ash_3.getSheetByName("(名前変更不可)製造実績東急渋谷")
   }
+  else if(shop_3 == "BAドーム"){
+    achiv_sht = ash_3.getSheetByName("(名前変更不可)製造実績ドーム")
+  }
   
 
   todayformatted_3 = Utilities.formatDate(today_3, "JST", "yyyy/MM/dd");
