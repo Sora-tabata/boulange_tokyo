@@ -3,7 +3,7 @@ function myFunction5() {
   var shtn3 = ash2.getSheetByName("(名前変更不可)オーダーシート3店舗分")
   var shtn5 = ash2.getSheetByName("(名前変更不可)夜勤製造表")
 
-  today2 = shtn5.getRange("F1").getValue();
+  today2 = shtn5.getRange("B1").getValue();
 
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
@@ -187,11 +187,11 @@ function myFunction5() {
 
 
 
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!A2:C999").getValues();
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!F2:H999").getValues();
   night_products = [];
   for (var i=0;i<all_datan3.length;i++){
     if (boolean[i][2] == "true"){
-      night_products[i] = [boolean[i][0],boolean[i][1],all_datan3[i][4]+all_datan3[i][5]+all_datan3[i][6]]
+      night_products.push(boolean[i][0],boolean[i][1],all_datan3[i][4]+all_datan3[i][5]+all_datan3[i][6])
     }
     else{
       continue;
