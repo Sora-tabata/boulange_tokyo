@@ -3,7 +3,7 @@ function myFunction5() {
   var shtn3 = ash2.getSheetByName("(名前変更不可)オーダーシート3店舗分")
   var shtn5 = ash2.getSheetByName("(名前変更不可)夜勤製造表")
 
-  today2 = shtn5.getRange("B1").getValue();
+  today2 = shtn5.getRange("G2").getValue();
 
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
@@ -186,22 +186,22 @@ function myFunction5() {
 
 
 
-
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!F2:H999").getValues();
+  var lastRow5 = shtn5.getRange('I:I').getValues().filter(String).length;
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!H2:J999").getValues();
   night_products = [];
-  for (var i=0;i<all_datan3.length;i++){
-    if (boolean[i][2] == "true"){
-      night_products.push(boolean[i][0],boolean[i][1],all_datan3[i][4]+all_datan3[i][5]+all_datan3[i][6])
+  night_products2 = [];
+  for (var i=0;i<lastRow5;i++){
+    if (boolean[i][2] != false){
+      night_products[i] = [boolean[i][0], 
+                           boolean[i][1],
+                           all_datan3[i][5]+all_datan3[i][8]+all_datan3[i][11]]
     }
-    else{
-      continue;
-    }
-
-
   }
+  var lastColumn6 = night_products[0].length; //カラムの数を取得する
+  var lastRow6 = night_products.length;
+  shtn5.getRange(2, 1, lastRow6, lastColumn6).setValues(night_products)
   Logger.log(boolean)
   Logger.log(all_datan3)
   Logger.log(night_products)
-
-
+  //Logger.log(night_products2)
 }
