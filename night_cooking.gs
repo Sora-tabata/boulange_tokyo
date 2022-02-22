@@ -3,7 +3,7 @@ function myFunction5() {
   var shtn3 = ash2.getSheetByName("(名前変更不可)オーダーシート3店舗分")
   var shtn5 = ash2.getSheetByName("(名前変更不可)夜勤製造表")
 
-  today2 = shtn5.getRange("G2").getValue();
+  today2 = shtn5.getRange("B1").getValue();
 
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
@@ -186,8 +186,8 @@ function myFunction5() {
 
 
 
-  var lastRow5 = shtn5.getRange('I:I').getValues().filter(String).length;
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!H2:J999").getValues();
+  var lastRow5 = shtn5.getRange('G:G').getValues().filter(String).length;
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!F2:H999").getValues();
   night_products = [];
   night_products2 = [];
   for (var i=0;i<lastRow5;i++){
@@ -196,12 +196,38 @@ function myFunction5() {
                            boolean[i][1],
                            all_datan3[i][5]+all_datan3[i][8]+all_datan3[i][11]]
     }
+    else{
+      continue;
+    }
   }
-  var lastColumn6 = night_products[0].length; //カラムの数を取得する
-  var lastRow6 = night_products.length;
-  shtn5.getRange(2, 1, lastRow6, lastColumn6).setValues(night_products)
+  for (var i=0;i<lastRow5;i++){
+    if (night_products[i] != null){
+        night_products2[i] = night_products[i]
+    }
+    else{
+      continue;
+    }
+ }
   Logger.log(boolean)
   Logger.log(all_datan3)
-  Logger.log(night_products)
+  Logger.log(night_products2)
+  var lastColumn6 = night_products[0].length; //カラムの数を取得する
+  var lastRow6 = night_products.length;
+  shtn5.getRange(2,1,999,lastColumn6).clear();
+  //Logger.log(today_column)
+  //Logger.log(all_datan)
+  //Logger.log(lastRow)
+
+  //交互の背景色指定
+    for (var i=1;i<=night_products.length;i++){
+      if(i%2 == 0){
+        shtn5.getRange(i+1, 1, 1, lastColumn6).setBackgroundColor('#D3D3D3');
+      }
+      else{
+        shtn5.getRange(i+1, 1, 1, lastColumn6).setBackgroundColor('#FFFFFF');
+      }
+    }
+
+  shtn5.getRange(2, 1, lastRow6, lastColumn6).setValues(night_products)
   //Logger.log(night_products2)
 }
