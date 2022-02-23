@@ -186,34 +186,35 @@ function myFunction5() {
 
 
 
-  var lastRow5 = shtn5.getRange('G:G').getValues().filter(String).length;
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!F2:H999").getValues();
+  var lastRow5 = shtn5.getRange('J:J').getValues().filter(String).length-1;
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!I2:K999").getValues();
   night_products = [];
   night_products2 = [];
+  Logger.log(all_datan3[0][5])
   for (var i=0;i<lastRow5;i++){
-    if (boolean[i][2] != false){
-      night_products[i] = [boolean[i][0], 
+    if (boolean[i][2] == true){
+      night_products.push([boolean[i][0], 
                            boolean[i][1],
-                           all_datan3[i][5]+all_datan3[i][8]+all_datan3[i][11]]
+                           ])
     }
     else{
       continue;
     }
   }
-  for (var i=0;i<lastRow5;i++){
-    if (night_products[i] != null){
-        night_products2[i] = night_products[i]
-    }
-    else{
-      continue;
-    }
- }
-  Logger.log(boolean)
-  Logger.log(all_datan3)
+  Logger.log(night_products)
+    for (var h=0;h<night_products.length;h++){
+      night_products2.push([night_products[h][0],
+                            night_products[h][1],
+                            data_all3[h][4],
+                            data_all3[h][5],
+                            data_all3[h][6],
+                            data_all3[h][4]+data_all3[h][5]+data_all3[h][6]])
+  }
+
   Logger.log(night_products2)
-  var lastColumn6 = night_products[0].length; //カラムの数を取得する
-  var lastRow6 = night_products.length;
-  shtn5.getRange(2,1,999,lastColumn6).clear();
+  var lastColumn6 = night_products2[0].length; //カラムの数を取得する
+  var lastRow6 = night_products2.length;
+  shtn5.getRange(3,1,999,lastColumn6).clear();
   //Logger.log(today_column)
   //Logger.log(all_datan)
   //Logger.log(lastRow)
@@ -221,13 +222,13 @@ function myFunction5() {
   //交互の背景色指定
     for (var i=1;i<=night_products.length;i++){
       if(i%2 == 0){
-        shtn5.getRange(i+1, 1, 1, lastColumn6).setBackgroundColor('#D3D3D3');
+        shtn5.getRange(i+2, 1, 1, lastColumn6).setBackgroundColor('#D3D3D3');
       }
       else{
-        shtn5.getRange(i+1, 1, 1, lastColumn6).setBackgroundColor('#FFFFFF');
+        shtn5.getRange(i+2, 1, 1, lastColumn6).setBackgroundColor('#FFFFFF');
       }
     }
 
-  shtn5.getRange(2, 1, lastRow6, lastColumn6).setValues(night_products)
+  shtn5.getRange(3, 1, lastRow6, lastColumn6).setValues(night_products2)
   //Logger.log(night_products2)
 }
