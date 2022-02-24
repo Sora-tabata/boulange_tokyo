@@ -203,12 +203,15 @@ function myFunction5() {
   }
   Logger.log(night_products)
     for (var h=0;h<night_products.length;h++){
+      num = night_products[h][0]-1
+      Logger.log(num)
       night_products2.push([night_products[h][0],
                             night_products[h][1],
-                            data_all3[h][4],
-                            data_all3[h][5],
-                            data_all3[h][6],
-                            data_all3[h][4]+data_all3[h][5]+data_all3[h][6]])
+                            data_all3[num][4],
+                            data_all3[num][5],
+                            data_all3[num][6],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]-data_all3pre[num][4]-data_all3pre[num][5]-data_all3pre[num][6]])
   }
 
   Logger.log(night_products2)
