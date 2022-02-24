@@ -5,34 +5,42 @@ function myFunction(today, shop, flight){
 //引数の定義
   today = shtn.getRange("K1").getValue();
   shop = shtn.getRange("A1").getValue();
-  if (shop == "BA立川"){
-    var sht = ash.getSheetByName("(名前変更不可)オーダーシート立川");
-    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
-    var data_all = sht.getRange(6, 1, lastRow,229).getValues();
-  }
-  else if (shop == "BA東急渋谷"){
-    var sht = ash.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
-    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
-    var data_all = sht.getRange(6,1,lastRow,229).getValues();
-  }
-  else if (shop == "BAドーム"){
-    var sht = ash.getSheetByName("(名前変更不可)オーダーシートドーム");
-    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
-    var data_all = sht.getRange(6, 1, lastRow,229).getValues();
-  }
-  flight = shtn.getRange("B2").getValue();
-  
+
   todayformatted = Utilities.formatDate(today, "JST", "yyyy/MM/dd");
   const data_day = ash.getRange("admin!D2:E33").getValues();//日付のリスト取り込み
 
-
-//納品書の日付を取得
   for (var i=0;i<data_day.length;i++){
     if (Utilities.formatDate(data_day[i][1], "JST", "yyyy/MM/dd") == todayformatted){
       var today_column = (i+1)*7-1
       break
     }
   }
+
+  if (shop == "BA立川"){
+    var sht = ash.getSheetByName("(名前変更不可)オーダーシート立川");
+    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
+    var data_all = sht.getRange(6, 1, lastRow,229).getValues();
+    var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
+  }
+  else if (shop == "BA東急渋谷"){
+    var sht = ash.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
+    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
+    var data_all = sht.getRange(6,1,lastRow,229).getValues();
+    var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
+  }
+  else if (shop == "BAドーム"){
+    var sht = ash.getSheetByName("(名前変更不可)オーダーシートドーム");
+    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
+    var data_all = sht.getRange(6, 1, lastRow,229).getValues();
+    var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
+  }
+  flight = shtn.getRange("B2").getValue();
+  
+
+
+
+//納品書の日付を取得
+
 
 
 //data_allから合計が0になってる行を削除
@@ -76,6 +84,7 @@ function myFunction(today, shop, flight){
   if (flight == "全日"){
     shtn.getRange(5, 1, 1000, lastColumn).clear();
     shtn.getRange(5,1,lastRow,lastColumn).setValues(all_datan)
+    shtn.getRange(1, 3, 1, 1).setValue(memo);
   }
 
 //1便ver
@@ -91,6 +100,7 @@ function myFunction(today, shop, flight){
     }
     shtn.getRange(5, 1, 1000, lastColumn).clear();
     shtn.getRange(5,1,lastRow,lastColumn).setValues(all_datan);
+    shtn.getRange(1, 3, 1, 1).setValue(memo);
   }
 
 //2便ver
@@ -105,6 +115,7 @@ function myFunction(today, shop, flight){
     }
     shtn.getRange(5, 1, 1000, lastColumn).clear();
     shtn.getRange(5,1,lastRow,lastColumn).setValues(all_datan);
+    shtn.getRange(1, 3, 1, 1).setValue(memo);
   }
 
 //3便ver
@@ -119,9 +130,9 @@ function myFunction(today, shop, flight){
     }
     shtn.getRange(5, 1, 1000, lastColumn).clear();
     shtn.getRange(5,1,lastRow,lastColumn).setValues(all_datan);
+    shtn.getRange(1, 3, 1, 1).setValue(memo);
 
   }
-  
   shtn.getRange(5,13,lastRow,1).clear();
   //Logger.log(today_column)
   //Logger.log(all_datan)
