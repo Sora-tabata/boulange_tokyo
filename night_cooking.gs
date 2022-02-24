@@ -8,6 +8,7 @@ function myFunction5() {
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
   var sht_dome = ash2.getSheetByName("(名前変更不可)オーダーシートドーム");
+  var sht_popup = ash2.getSheetByName("(名前変更不可)オーダーシートPOP-UP");
 
   //日付のリスト取り込み
   todayformatted2 = Utilities.formatDate(today2, "JST", "yyyy/MM/dd");
@@ -127,25 +128,28 @@ function myFunction5() {
   data_dome = getsht2data(sht_dome);
   data_tachikawa = getsht2datasub(sht_tachikawa);
   data_shibuya = getsht2datasub(sht_shibuya);
+  data_popup = getsht2datasub(sht_popup);
   if(today_column2 == 5){
     data_domepre = data_dome
     data_tachikawapre = data_tachikawa
     data_shibuyapre = data_shibuya
+    data_popuppre = data_popup
   }
   else{
     data_domepre = getsht2datapre(sht_dome);
     data_tachikawapre = getsht2datasubpre(sht_tachikawa);
     data_shibuyapre = getsht2datasubpre(sht_shibuya);
+    data_popuppre = getsht2datasubpre(sht_popup);
   }
   var data_all3 = []
   
   for (var h=0;h<lastRow2;h++){
-    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h])
+    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h]).concat(data_popup[h])
   }
 
   var data_all3pre = []
   for (var h=0;h<lastRow2;h++){
-    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h])
+    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h]).concat(data_popuppre[h])
   }
 
   var all_datan3 = [];
@@ -155,20 +159,15 @@ function myFunction5() {
                       data_all3[x][1],
                       data_all3[x][2],
                       data_all3[x][3],
-                      data_all3[x][1]*data_all3[x][4],
                       data_all3[x][4],
-                      data_all3[x][2]*data_all3[x][4],
-                      data_all3[x][1]*data_all3[x][5],
                       data_all3[x][5],
-                      data_all3[x][2]*data_all3[x][5],
-                      data_all3[x][1]*data_all3[x][6],
                       data_all3[x][6],
-                      data_all3[x][2]*data_all3[x][6]]
+                      data_all3[x][7]]
   }
   for (var y=0;y<all_datan3.length;y++){
-    if (all_datan3[y][5] == 0 && all_datan3[y][8] == 0 && all_datan3[y][11] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0){
-      all_datan3[y].splice(0, 13)
-      data_all3pre[y].splice(0, 6)
+    if (all_datan3[y][4] == 0 && all_datan3[y][5] == 0 && all_datan3[y][6] == 0 && all_datan3[y][7] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0 && data_all3pre[y][7] == 0){
+      all_datan3[y].splice(0, 7)
+      data_all3pre[y].splice(0, 7)
     }
   }
 
@@ -186,8 +185,8 @@ function myFunction5() {
 
 
 
-  var lastRow5 = shtn5.getRange('J:J').getValues().filter(String).length-1;
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!I2:K999").getValues();
+  var lastRow5 = shtn5.getRange('L:L').getValues().filter(String).length-1;
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!K2:M999").getValues();
   night_products = [];
   night_products2 = [];
   Logger.log(all_datan3[0][5])
@@ -210,8 +209,9 @@ function myFunction5() {
                             data_all3[num][4],
                             data_all3[num][5],
                             data_all3[num][6],
-                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6],
-                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]-data_all3pre[num][4]-data_all3pre[num][5]-data_all3pre[num][6]])
+                            data_all3[num][7],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]-data_all3pre[num][4]-data_all3pre[num][5]-data_all3pre[num][6]-data_all3[num][7]])
   }
 
   Logger.log(night_products2)
