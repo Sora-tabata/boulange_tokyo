@@ -22,7 +22,7 @@ function myFunction2() {
   }
   var lastRow2 = sht_shibuya.getRange('B:B').getValues().filter(String).length;
   
-
+  //Logger.log(today_column2)
   
   function getsht2data(datasht){
     var data_all2 = datasht.getRange(6, 2, lastRow2,229).getValues();
@@ -217,6 +217,17 @@ var min = d.getMinutes();
 var s = d.getSeconds();
 var now = y+"/"+mon+"/"+d2+" "+h+":"+min+":"+s;
 shtn3.getRange("C4").setValue(now);
+
+
+//申し送り事項
+var memo_shibuya = sht_shibuya.getRange(1, today_column2+2, 1, 1).getValue();
+var memo_tachikawa = sht_tachikawa.getRange(1, today_column2+2, 1, 1).getValue();
+var memo_dome = sht_dome.getRange(1, today_column2+2, 1, 1).getValue();
+shtn3.getRange(1, 5, 1, 1).setValue(memo_dome);
+shtn3.getRange(1, 8, 1, 1).setValue(memo_tachikawa);
+shtn3.getRange(1, 11, 1, 1).setValue(memo_shibuya);
+//Logger.log(memo)
+
  Browser.msgBox("更新が完了しました。OKを押した後、数秒で反映されます。", Browser.Buttons.OK)
 
 
