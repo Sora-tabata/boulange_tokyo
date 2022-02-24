@@ -7,6 +7,7 @@ function myFunction2() {
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
   var sht_dome = ash2.getSheetByName("(名前変更不可)オーダーシートドーム");
+  var sht_popup = ash2.getSheetByName("(名前変更不可)オーダーシートPOP-UP");
 
   //日付のリスト取り込み
   todayformatted2 = Utilities.formatDate(today2, "JST", "yyyy/MM/dd");
@@ -126,25 +127,28 @@ function myFunction2() {
   data_dome = getsht2data(sht_dome);
   data_tachikawa = getsht2datasub(sht_tachikawa);
   data_shibuya = getsht2datasub(sht_shibuya);
+  data_popup = getsht2datasub(sht_popup);
   if(today_column2 == 5){
     data_domepre = data_dome
     data_tachikawapre = data_tachikawa
     data_shibuyapre = data_shibuya
+    data_popuppre = data_popup
   }
   else{
     data_domepre = getsht2datapre(sht_dome);
     data_tachikawapre = getsht2datasubpre(sht_tachikawa);
     data_shibuyapre = getsht2datasubpre(sht_shibuya);
+    data_popuppre = getsht2datasubpre(sht_popup);
   }
   var data_all3 = []
   
   for (var h=0;h<lastRow2;h++){
-    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h])
+    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h]).concat(data_popup[h])
   }
 
   var data_all3pre = []
   for (var h=0;h<lastRow2;h++){
-    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h])
+    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h]).concat(data_popuppre[h])
   }
 
   var all_datan3 = [];
@@ -154,27 +158,22 @@ function myFunction2() {
                       data_all3[x][1],
                       data_all3[x][2],
                       data_all3[x][3],
-                      data_all3[x][1]*data_all3[x][4],
                       data_all3[x][4],
-                      data_all3[x][2]*data_all3[x][4],
-                      data_all3[x][1]*data_all3[x][5],
                       data_all3[x][5],
-                      data_all3[x][2]*data_all3[x][5],
-                      data_all3[x][1]*data_all3[x][6],
                       data_all3[x][6],
-                      data_all3[x][2]*data_all3[x][6]]
+                      data_all3[x][7],
+                      data_all3[x][4]+data_all3[x][5]+data_all3[x][6]+data_all3[x][7]]
   }
   for (var y=0;y<all_datan3.length;y++){
-    if (all_datan3[y][5] == 0 && all_datan3[y][8] == 0 && all_datan3[y][11] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0){
-      all_datan3[y].splice(0, 13)
-      data_all3pre[y].splice(0, 6)
+    if (all_datan3[y][4] == 0 && all_datan3[y][5] == 0 && all_datan3[y][6] == 0 && all_datan3[y][7] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0 && data_all3pre[y][7] == 0){
+      all_datan3[y].splice(0, 7)
+      data_all3pre[y].splice(0, 7)
     }
   }
-
   var all_datan4 = []
   var all_datan4pre = []
   for (var z=0;z<all_datan3.length;z++){
-    if (all_datan3[z].length != 0){
+    if (all_datan3[z].length != 2){
       all_datan4.push(all_datan3[z])
       all_datan4pre.push(data_all3pre[z])
     }
@@ -182,6 +181,7 @@ function myFunction2() {
   if (!all_datan4.length){
     Browser.msgBox("記入されたデータがありません。オーダーシートを確認してください。", Browser.Buttons.OK)
   }
+  Logger.log(all_datan4)
   var lastColumn3 = all_datan4[0].length; //カラムの数を取得する
   var lastRow3 = all_datan4.length;   //行の数を取得する
   shtn3.getRange(6, 1, 1000, lastColumn3).clear();
@@ -194,18 +194,18 @@ function myFunction2() {
     else{
       shtn3.getRange(i+5, 1, 1, lastColumn3).setBackgroundColor('#FFFFFF');
       }
-    if(all_datan4[i-1][5] != all_datan4pre[i-1][4]){
+    if(all_datan4[i-1][4] != all_datan4pre[i-1][4]){
+      shtn3.getRange(i+5, 5, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
+    }
+    if(all_datan4[i-1][5] != all_datan4pre[i-1][5]){
       shtn3.getRange(i+5, 6, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
     }
-    if(all_datan4[i-1][8] != all_datan4pre[i-1][5]){
-      shtn3.getRange(i+5, 9, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
+    if(all_datan4[i-1][6] != all_datan4pre[i-1][6]){
+      shtn3.getRange(i+5, 7, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
     }
-    if(all_datan4[i-1][11] != all_datan4pre[i-1][6]){
-      shtn3.getRange(i+5, 12, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
+    if(all_datan4[i-1][7] != all_datan4pre[i-1][7]){
+      shtn3.getRange(i+5, 8, 1, 1).setFontLine("underline").setFontWeight("bold").setFontStyle("italic")
     }
-    shtn3.getRange(i+5, 6, 1, 1).setBackgroundColor('#ffff00')
-    shtn3.getRange(i+5, 9, 1, 1).setBackgroundColor('#ffff00')
-    shtn3.getRange(i+5, 12, 1, 1).setBackgroundColor('#ffff00')
  }
 
 var d = new Date();
@@ -223,9 +223,11 @@ shtn3.getRange("C4").setValue(now);
 var memo_shibuya = sht_shibuya.getRange(1, today_column2+2, 1, 1).getValue();
 var memo_tachikawa = sht_tachikawa.getRange(1, today_column2+2, 1, 1).getValue();
 var memo_dome = sht_dome.getRange(1, today_column2+2, 1, 1).getValue();
+var memo_popup = sht_popup.getRange(1, today_column2+2, 1, 1).getValue();
 shtn3.getRange(1, 5, 1, 1).setValue(memo_dome);
-shtn3.getRange(1, 8, 1, 1).setValue(memo_tachikawa);
-shtn3.getRange(1, 11, 1, 1).setValue(memo_shibuya);
+shtn3.getRange(1, 6, 1, 1).setValue(memo_tachikawa);
+shtn3.getRange(1, 7, 1, 1).setValue(memo_shibuya);
+shtn3.getRange(1, 8, 1, 1).setValue(memo_popup);
 //Logger.log(memo)
 
  Browser.msgBox("更新が完了しました。OKを押した後、数秒で反映されます。", Browser.Buttons.OK)
