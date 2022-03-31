@@ -176,7 +176,7 @@ function myFunction6() {
       all_datan5[x] = ["","","","",""]
       continue
     }
-    else if (num == 167 || num == 45){
+    else if (num == 166 || num == 44 || num == 168 || num == 170){
       all_datan5[x] = [all_datan3[num][0],
                       all_datan3[num][1],
                       all_datan3[num][2],
@@ -185,12 +185,12 @@ function myFunction6() {
       continue
 
     }
-    else if (num == 179){
+    else if (num == 178 || num == 63){
       all_datan5[x] = [all_datan3pre[num][0],
-                      all_datan3[num][1],
+                      all_datan3pre[num][1],
                       all_datan3pre[num][2],
-                      all_datan3[num][3],
-                      all_datan3[num][4]]
+                      all_datan3pre[num][3],
+                      all_datan3pre[num][4]]
       continue
     }
     else{
