@@ -40,6 +40,12 @@ function myFunction(today, shop, flight){
     var data_all = sht.getRange(6, 1, lastRow,229).getValues();
     var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
   }
+  else if (shop == "移動販売"){
+    var sht = ash.getSheetByName("(名前変更不可)オーダーシート移動販売");
+    var lastRow = sht.getRange('B:B').getValues().filter(String).length;
+    var data_all = sht.getRange(6, 1, lastRow,229).getValues();
+    var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
+  }
   flight = shtn.getRange("B2").getValue();
   
 
