@@ -1,6 +1,6 @@
 function myFunction5() {
   var ash2 = SpreadsheetApp.getActiveSpreadsheet();
-  var shtn3 = ash2.getSheetByName("(名前変更不可)オーダーシート3店舗分")
+  var shtn3 = ash2.getSheetByName("(名前変更不可)オーダーシート全店舗")
   var shtn5 = ash2.getSheetByName("(名前変更不可)夜勤製造表")
 
   today2 = shtn5.getRange("B1").getValue();
@@ -8,6 +8,8 @@ function myFunction5() {
   var sht_tachikawa = ash2.getSheetByName("(名前変更不可)オーダーシート立川");
   var sht_shibuya = ash2.getSheetByName("(名前変更不可)オーダーシート東急渋谷");
   var sht_dome = ash2.getSheetByName("(名前変更不可)オーダーシートドーム");
+  var sht_popup = ash2.getSheetByName("(名前変更不可)オーダーシートPOP-UP");
+  var sht_mobile = ash2.getSheetByName("(名前変更不可)オーダーシート移動販売");
 
   //日付のリスト取り込み
   todayformatted2 = Utilities.formatDate(today2, "JST", "yyyy/MM/dd");
@@ -127,25 +129,31 @@ function myFunction5() {
   data_dome = getsht2data(sht_dome);
   data_tachikawa = getsht2datasub(sht_tachikawa);
   data_shibuya = getsht2datasub(sht_shibuya);
+  data_popup = getsht2datasub(sht_popup);
+  data_mobile = getsht2datasub(sht_mobile);
   if(today_column2 == 5){
     data_domepre = data_dome
     data_tachikawapre = data_tachikawa
     data_shibuyapre = data_shibuya
+    data_popuppre = data_popup
+    data_mobilepre = data_mobile
   }
   else{
     data_domepre = getsht2datapre(sht_dome);
     data_tachikawapre = getsht2datasubpre(sht_tachikawa);
     data_shibuyapre = getsht2datasubpre(sht_shibuya);
+    data_popuppre = getsht2datasubpre(sht_popup);
+    data_mobilepre = getsht2datasubpre(sht_mobile);
   }
   var data_all3 = []
   
   for (var h=0;h<lastRow2;h++){
-    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h])
+    data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h]).concat(data_popup[h]).concat(data_mobile[h])
   }
 
   var data_all3pre = []
   for (var h=0;h<lastRow2;h++){
-    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h])
+    data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h]).concat(data_popuppre[h]).concat(data_mobilepre[h])
   }
 
   var all_datan3 = [];
@@ -163,12 +171,18 @@ function myFunction5() {
                       data_all3[x][2]*data_all3[x][5],
                       data_all3[x][1]*data_all3[x][6],
                       data_all3[x][6],
-                      data_all3[x][2]*data_all3[x][6]]
+                      data_all3[x][2]*data_all3[x][6],
+                      data_all3[x][1]*data_all3[x][7],
+                      data_all3[x][7],
+                      data_all3[x][2]*data_all3[x][7],
+                      data_all3[x][1]*data_all3[x][8],
+                      data_all3[x][8],
+                      data_all3[x][2]*data_all3[x][8]]
   }
   for (var y=0;y<all_datan3.length;y++){
-    if (all_datan3[y][5] == 0 && all_datan3[y][8] == 0 && all_datan3[y][11] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0){
-      all_datan3[y].splice(0, 13)
-      data_all3pre[y].splice(0, 6)
+    if (all_datan3[y][5] == 0 && all_datan3[y][8] == 0 && all_datan3[y][11] == 0 && all_datan3[y][14] == 0 && all_datan3[y][17] == 0 && data_all3pre[y][4] == 0 && data_all3pre[y][5] == 0 && data_all3pre[y][6] == 0 && data_all3pre[y][7] == 0 && data_all3pre[y][8] == 0){
+      all_datan3[y].splice(0, 19)
+      data_all3pre[y].splice(0, 8)
     }
   }
 
@@ -186,8 +200,8 @@ function myFunction5() {
 
 
 
-  var lastRow5 = shtn5.getRange('K:K').getValues().filter(String).length-1;
-  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!J2:L999").getValues();
+  var lastRow5 = shtn5.getRange('M:M').getValues().filter(String).length-1;
+  var boolean = ash2.getRange("(名前変更不可)夜勤製造表!L2:N999").getValues();
   night_products = [];
   night_products2 = [];
   Logger.log(all_datan3[0][5])
@@ -211,8 +225,10 @@ function myFunction5() {
                             data_all3[num][4],
                             data_all3[num][5],
                             data_all3[num][6],
-                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6],
-                            Math.ceil((data_all3[num][4]+data_all3[num][5]+data_all3[num][6])/12),
+                            data_all3[num][7],
+                            data_all3[num][8],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]+data_all3[num][8],
+                            Math.ceil((data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]+data_all3[num][8])/12),
                             "12の倍数(切り上げ)"])
       }
       else if(num == 120 || num == 145){
@@ -221,8 +237,10 @@ function myFunction5() {
                             data_all3[num][4],
                             data_all3[num][5],
                             data_all3[num][6],
-                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6],
-                            Math.ceil((data_all3[num][4]+data_all3[num][5]+data_all3[num][6])/11),
+                            data_all3[num][7],
+                            data_all3[num][8],
+                            data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]+data_all3[num][8],
+                            Math.ceil((data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]+data_all3[num][8])/11),
                             "11の倍数(切り上げ)"])
       }
       else{
@@ -231,7 +249,9 @@ function myFunction5() {
                               data_all3[num][4],
                               data_all3[num][5],
                               data_all3[num][6],
-                              data_all3[num][4]+data_all3[num][5]+data_all3[num][6],
+                              data_all3[num][7],
+                              data_all3[num][8],
+                              data_all3[num][4]+data_all3[num][5]+data_all3[num][6]+data_all3[num][7]+data_all3[num][8],
                               "N/A",
                               "N/A"])
       }
