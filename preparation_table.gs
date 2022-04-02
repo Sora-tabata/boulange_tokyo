@@ -78,6 +78,32 @@ function myFunction6() {
     return data_all2
   }
 
+  function getsht2dataprepre(datasht){
+    var data_all2 = datasht.getRange(6, 2, lastRow2,229).getValues();
+
+    //列を削除
+    
+    var deleteArray2 = []
+    for (var k=4;k<230;k++){
+      if (k == today_column2+4){
+        break
+      }
+      deleteArray2.push(k)    
+    }
+
+    for (var l=today_column2+5;l<230;l++){
+      deleteArray2.push(l)
+    }
+      
+    for (var m=0; m<data_all2.length; m++){
+      for (var n=0; n<deleteArray2.length;n++){
+        data_all2[m].splice(deleteArray2[n]-n, 1);
+      }
+    }
+
+    return data_all2
+  }
+
   function getsht2datasub(datasht2) {
     var data_all5 = datasht2.getRange(6, 2, lastRow2,229).getValues();
     var deleteArray2 = []
@@ -122,7 +148,27 @@ function myFunction6() {
     return data_all5
   }
 
+  function getsht2datasubprepre(datasht2) {
+    var data_all5 = datasht2.getRange(6, 2, lastRow2,229).getValues();
+    var deleteArray2 = []
+    for (var k=0;k<230;k++){
+      if (k == today_column2+4){
+        break
+      }
+      deleteArray2.push(k)    
+    }
 
+    for (var l=today_column2+5;l<230;l++){
+      deleteArray2.push(l)
+    }
+      
+    for (var m=0; m<data_all5.length; m++){
+      for (var n=0; n<deleteArray2.length;n++){
+        data_all5[m].splice(deleteArray2[n]-n, 1);
+      }
+    }
+    return data_all5
+  }
 
 
   data_dome = getsht2data(sht_dome);
@@ -135,20 +181,31 @@ function myFunction6() {
   data_shibuyapre = getsht2datasubpre(sht_shibuya);
   data_popuppre = getsht2datasubpre(sht_popup);
   data_mobilepre = getsht2datasubpre(sht_mobile);
+  data_domeprepre = getsht2dataprepre(sht_dome);
+  data_tachikawaprepre = getsht2datasubprepre(sht_tachikawa);
+  data_shibuyaprepre = getsht2datasubprepre(sht_shibuya);
+  data_popupprepre = getsht2datasubprepre(sht_popup);
+  data_mobileprepre = getsht2datasubprepre(sht_mobile);
   
   var data_all3 = []
+  var data_all3pre = []
+  var data_all3prepre = []
   
   for (var h=0;h<lastRow2;h++){
     data_all3[h] = data_dome[h].concat(data_tachikawa[h]).concat(data_shibuya[h]).concat(data_popup[h]).concat(data_mobile[h])
   }
 
-  var data_all3pre = []
   for (var h=0;h<lastRow2;h++){
     data_all3pre[h] = data_domepre[h].concat(data_tachikawapre[h]).concat(data_shibuyapre[h]).concat(data_popuppre[h]).concat(data_mobilepre[h])
   }
 
+  for (var h=0;h<lastRow2;h++){
+    data_all3prepre[h] = data_domeprepre[h].concat(data_tachikawaprepre[h]).concat(data_shibuyaprepre[h]).concat(data_popupprepre[h]).concat(data_mobileprepre[h])
+  }
+
   var all_datan3 = [];
   var all_datan3pre = [];
+  var all_datan3prepre = [];
 
   for (var x=0;x<data_all3.length;x++) {
       all_datan3[x] = [data_all3[x][4],
@@ -161,6 +218,11 @@ function myFunction6() {
                       data_all3pre[x][6],
                       data_all3pre[x][7],
                       data_all3pre[x][8]]
+      all_datan3prepre[x] = [data_all3prepre[x][4],
+                            data_all3prepre[x][5],
+                            data_all3prepre[x][6],
+                            data_all3prepre[x][7],
+                            data_all3prepre[x][8]]
   }
 
   //Logger.log(all_datan3)
@@ -171,7 +233,7 @@ function myFunction6() {
   all_datan5 = []
   for (var x=0;x<data_prepared.length;x++) {
     num = data_prepared[x][0]-1
-    Logger.log(num)
+    //Logger.log(num)
     if (num == -1){
       all_datan5[x] = ["","","","",""]
       continue
@@ -185,10 +247,19 @@ function myFunction6() {
       continue
 
     }
-    else if (num == 178 || num == 63){
+    else if (num == 63){
       all_datan5[x] = [all_datan3pre[num][0],
                       all_datan3pre[num][1],
                       all_datan3pre[num][2],
+                      all_datan3pre[num][3],
+                      all_datan3pre[num][4]]
+      continue
+    }
+
+    else if (num == 178){
+      all_datan5[x] = [all_datan3prepre[num][0],
+                      all_datan3pre[num][1],
+                      all_datan3prepre[num][2],
                       all_datan3pre[num][3],
                       all_datan3pre[num][4]]
       continue
@@ -202,7 +273,7 @@ function myFunction6() {
       continue 
     }
   }
-  Logger.log(all_datan5)
+  //Logger.log(all_datan5)
   var lastColumn3 = all_datan5[0].length; //カラムの数を取得する
   var lastRow3 = all_datan5.length;   //行の数を取得する
   shtn3.getRange(3, 8, 1000, lastColumn3).clear();
