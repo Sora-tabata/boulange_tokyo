@@ -14,7 +14,7 @@ function myFunction3(){
   else if(shop_3 == "BAドーム"){
     achiv_sht = ash_3.getSheetByName("(名前変更不可)製造実績ドーム")
   }
-  else if(shop_3 == "POP-UP"){
+  else if(shop_3 == "POP-UP(錦糸町)"){
     achiv_sht = ash_3.getSheetByName("(名前変更不可)製造実績POP-UP")
   }
   else if(shop_3 == "移動販売"){
