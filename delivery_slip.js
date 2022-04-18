@@ -34,7 +34,7 @@ function myFunction(today, shop, flight){
     var data_all = sht.getRange(6, 1, lastRow,229).getValues();
     var memo = sht.getRange(1, today_column+1, 1, 1).getValue();
   }
-  else if (shop == "POP-UP"){
+  else if (shop == "POP-UP(錦糸町)"){
     var sht = ash.getSheetByName("(名前変更不可)オーダーシートPOP-UP");
     var lastRow = sht.getRange('B:B').getValues().filter(String).length;
     var data_all = sht.getRange(6, 1, lastRow,229).getValues();
